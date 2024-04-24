@@ -1,15 +1,40 @@
-import React from 'react';
+
+import React, { useEffect, useState } from 'react';
+import { auth, firestore } from '../firebaseConfig';
+import { collection, getDocs, query, where } from 'firebase/firestore';
 
 const Dashboard = () => {
-    // Placeholder data - replace this with data fetched from your backend
-    const skillOffers = ['Web Development', 'Graphic Design'];
-    const skillRequests = ['Public Speaking', 'Digital Marketing'];
-    const notifications = ['You have a new message', 'New match found: Digital Marketing'];
+    const [skillOffers, setSkillOffers] = useState([]);
+    const [skillRequests, setSkillRequests] = useState([]);
+    const [notifications, setNotifications] = useState([]);
+
+    useEffect(() => {
+        const fetchSkills = async () => {
+            const user = auth.currentUser;
+            if (user) {
+                const skillsQuery = query(collection(firestore, "skills"), where("userId", "==", user.uid));
+                const querySnapshot = await getDocs(skillsQuery);
+                const offers = [];
+                const requests = [];
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    if (data.type === 'offer') {
+                        offers.push(data.skillName);
+                    } else if (data.type === 'request') {
+                        requests.push(data.skillName);
+                    }
+                });
+                setSkillOffers(offers);
+                setSkillRequests(requests);
+            }
+        };
+
+        fetchSkills();
+    }, []);
 
     return (
         <div className="container mx-auto px-4 py-8">
             <h1 className="text-4xl font-bold text-center my-8 text-green-600">Your Dashboard</h1>
-
             {/* Skill Offers Section */}
             <section className="mb-10">
                 <h2 className="text-2xl font-semibold mb-4 text-green-500">Your Skill Offers</h2>
