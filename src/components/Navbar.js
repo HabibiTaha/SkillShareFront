@@ -14,28 +14,6 @@ const Navbar = () => {
             console.error('Error signing out:', error);
         }
     };
-/* Assuming Tailwind is used; these classes are added directly in the component JSX */
-<nav className="bg-green-500 shadow-md">
-    <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-        <div className="text-white text-lg font-semibold">
-            <Link to="/" className="hover:text-green-200">SkillSwap</Link>
-        </div>
-        <ul className="flex items-center">
-            <li className="text-white ml-6">
-                <Link to="/dashboard" className="hover:text-green-200">Dashboard</Link>
-            </li>
-            <li className="text-white ml-6">
-                <Link to="/profile" className="hover:text-green-200">Profile</Link>
-            </li>
-            <li className="ml-6">
-                <button onClick={handleLogout} className="text-white bg-transparent hover:bg-green-600 p-2 rounded">
-                    Logout
-                </button>
-            </li>
-        </ul>
-    </div>
-</nav>
-
     return (
         <nav className="bg-green-500">
             <div className="container mx-auto px-4 py-4 flex justify-between items-center">
