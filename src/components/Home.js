@@ -1,14 +1,19 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate } from 'react-router-dom';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 
 const Home = () => {
-    const navigate = useNavigate(); // Initialize navigate function
+    const navigate = useNavigate();
+    const auth = getAuth();
 
-    const handleLogin = () => {
-        // Correctly navigate to the Dashboard route
-        navigate('/dashboard');
+    const handleLogin = async (email, password) => {
+        try {
+            await signInWithEmailAndPassword(auth, email, password);
+            navigate('/dashboard'); // Navigate on successful login
+        } catch (error) {
+            console.error('Failed to login:', error);
+        }
     };
-    
 
     return (
         <div className="container mx-auto px-4 py-8">
@@ -17,10 +22,8 @@ const Home = () => {
                 A community-driven platform where you can exchange skills and knowledge. Learn something new or share your expertise with others.
             </p>
             <div className="flex justify-center mt-8">
-                <button className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mx-2 transition duration-150 ease-in-out">
-                    Sign Up
-                </button>
-                <button onClick={handleLogin} className="bg-white hover:bg-green-100 text-green-600 font-semibold py-2 px-4 border border-green-500 hover:border-transparent rounded mx-2 transition duration-150 ease-in-out">
+                {/* Simulate login on button click, replace with actual form handling */}
+                <button onClick={() => handleLogin('test@example.com', 'password123')} className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mx-2 transition duration-150 ease-in-out">
                     Log In
                 </button>
             </div>
