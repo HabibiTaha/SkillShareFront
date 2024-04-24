@@ -1,20 +1,21 @@
+// App.js
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Navbar from './components/Navbar'; // Import Navbar
+import Navbar from './components/Navbar';
 import Home from './components/Home';
 import Dashboard from './components/Dashboard';
-import Profile from './components/Profile'; // Assume you have a Profile component
+import Profile from './components/Profile';
 
 function App() {
   return (
     <Router>
       <div className="App">
-        <Navbar /> {/* Include Navbar at the top */}
+        <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/profile" element={<Profile />} />
-          {/* Add more routes as needed */}
+          {/* Additional routes can be added here */}
         </Routes>
       </div>
     </Router>
